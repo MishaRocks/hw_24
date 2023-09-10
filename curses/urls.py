@@ -11,4 +11,3 @@ router.register(r'curs', CursViewSet, basename='curs')
 urlpatterns = [
 
 ] + router.urls
-
