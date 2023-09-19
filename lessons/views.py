@@ -1,17 +1,15 @@
-from django.shortcuts import render
-
 # Create your views here.
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from lessons.models import Lesson
 from lessons.serializers import LessonSerializer
-from permissions import IsOwner, IsModerator
+from lessons.permissions import IsOwner, IsModerator, NotModerator
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
     serializer_class = LessonSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, NotModerator]
 
     def perform_create(self, serializer):
         new_lesson = serializer.save()
@@ -41,4 +39,4 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
     queryset = Lesson.objects.all()
-    permission_classes = [IsOwner]
+    permission_classes = [IsOwner, NotModerator]

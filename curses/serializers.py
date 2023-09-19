@@ -9,6 +9,7 @@ from lessons.models import Lesson
 class CursSerializer(serializers.ModelSerializer):
     lessons_count = SerializerMethodField()
     lessons = SerializerMethodField()
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     def get_lessons_count(self, curs):
         return Lesson.objects.filter(curs=curs.pk).count()
