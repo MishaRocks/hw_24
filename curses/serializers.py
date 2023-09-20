@@ -19,4 +19,4 @@ class CursSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Curs
-        fields = ('title', 'lessons_count', 'lessons')
+        fields = ('title', 'lessons_count', 'lessons', 'user')
