@@ -1,7 +1,10 @@
 from django.urls import path
 
+from lessons.apps import LessonsConfig
 from lessons.views import LessonCreateAPIView, LessonListAPIView, LessonRetrieveAPIView, LessonUpdateAPIView, \
     LessonDestroyAPIView
+
+app_name = LessonsConfig.name
 
 urlpatterns = [
     path('create/', LessonCreateAPIView.as_view(), name='lesson-create'),
