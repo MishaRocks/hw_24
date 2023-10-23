@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 from pathlib import Path
 
@@ -136,3 +137,6 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+STRIPE_SECRET_API_KEY = 'sk_test_51O3cvmEJFM5h4BUWR5jIILMslWNNhjD48LGIHI44qopSdEq57927ejBQvCK0hzGlF4ULLfPKt60PHxP5wtSJvfxm00P73Mg2xB'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51O3cvmEJFM5h4BUWJz6a5UXa2aXjybuzraj6JIyAORDJdb8DtuDi6MoUM1thyqNKJpDRFlaH9QcWLwuCV1fpCFJA00nYIrkGAF'
