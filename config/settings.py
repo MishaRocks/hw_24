@@ -158,7 +158,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
-        'task': 'hw_24.tasks.my_task',
+        'task': 'users.tasks.disconnect_inactive_users',
         'schedule': timedelta(minutes=10),
     },
 }
