@@ -8,6 +8,8 @@ from curses.serializers import CursSerializer
 from subscribes.models import Subscribe
 from subscribes.serializers import SubscribeSerializer
 
+from tasks import send_subscription_notification, send_unsubscription_notification, send_course_update_notification
+
 
 class SubscribeCreateAPIView(generics.CreateAPIView):
     serializer_class = SubscribeSerializer
@@ -27,6 +29,8 @@ class SubscribeCreateAPIView(generics.CreateAPIView):
         subscription = Subscribe(user=user, curs=curs)
         subscription.save()
 
+        send_subscription_notification.delay(user.email, curs.title)
+
         return Response({"detail": "Подписка успешно установлена."}, status=status.HTTP_201_CREATED)
 
 
@@ -38,7 +42,13 @@ class SubscribeDestroyAPIView(generics.DestroyAPIView):
         user = self.request.user
         return Subscribe.objects.filter(user=user, is_active=True)
 
-    def perform_destroy(self, instance):
+    def perform_destroy(self, request, curs_id):
+        user = request.user
         # Устанавливаем подписку как неактивную вместо фактического удаления
-        instance.is_active = False
-        instance.save()
+        subscribe = Subscribe.objects.filter(curs=curs_id, user=user).first()
+        subscribe.is_active = False
+        subscribe.save()
+
+        send_unsubscription_notification.delay(subscribe.user.email, subscribe.curs.title)
+
+        return Response({"detail": "Вы отписаны."}, status=status.HTTP_201_CREATED)

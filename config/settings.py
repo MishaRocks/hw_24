@@ -1,4 +1,3 @@
-import os
 from datetime import timedelta
 from pathlib import Path
 
@@ -32,6 +31,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework_simplejwt',
     'drf_yasg',
+    'django_celery_beat',
 
     'users',
     'curses',
@@ -140,3 +140,25 @@ SIMPLE_JWT = {
 
 STRIPE_SECRET_API_KEY = 'sk_test_51O3cvmEJFM5h4BUWR5jIILMslWNNhjD48LGIHI44qopSdEq57927ejBQvCK0hzGlF4ULLfPKt60PHxP5wtSJvfxm00P73Mg2xB'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51O3cvmEJFM5h4BUWJz6a5UXa2aXjybuzraj6JIyAORDJdb8DtuDi6MoUM1thyqNKJpDRFlaH9QcWLwuCV1fpCFJA00nYIrkGAF'
+
+# URL-адрес брокера сообщений
+CELERY_BROKER_URL = 'redis://localhost:6379' # Например, Redis, который по умолчанию работает на порту 6379
+
+# URL-адрес брокера результатов, также Redis
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+# Часовой пояс для работы Celery
+CELERY_TIMEZONE = "Russia/Moscow"
+
+# Флаг отслеживания выполнения задач
+CELERY_TASK_TRACK_STARTED = True
+
+# Максимальное время на выполнение задачи
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BEAT_SCHEDULE = {
+    'task-name': {
+        'task': 'hw_24.tasks.my_task',
+        'schedule': timedelta(minutes=10),
+    },
+}
