@@ -80,6 +80,8 @@ DATABASES = {
         'NAME': 'hw_24',
         'USER': 'postgres',
         'PASSWORD': 'qadratura',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 

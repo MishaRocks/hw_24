@@ -8,7 +8,7 @@ from curses.serializers import CursSerializer
 from subscribes.models import Subscribe
 from subscribes.serializers import SubscribeSerializer
 
-from tasks import send_subscription_notification, send_unsubscription_notification, send_course_update_notification
+from subscribes.tasks import send_subscription_notification, send_unsubscription_notification
 
 
 class SubscribeCreateAPIView(generics.CreateAPIView):
